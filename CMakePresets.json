@@ -12,63 +12,55 @@
             }
         },
         {
-            "name": "x64-Darwin-Debug",
+            "name": "Debug",
             "inherits": "base",
             "hidden": false,
             "generator": "Unix Makefiles",
             "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Darwin"
+                "type": "anyOf",
+                "conditions": [
+                    {
+                        "type": "equals",
+                        "lhs": "${hostSystemName}",
+                        "rhs": "Darwin"
+                    },
+                    {
+                        "type": "equals",
+                        "lhs": "${hostSystemName}",
+                        "rhs": "Linux"
+                    }
+                ]
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
-            "name": "x64-Darwin-Release",
+            "name": "Release",
             "inherits": "base",
             "hidden": false,
             "generator": "Unix Makefiles",
             "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Darwin"
+                "type": "anyOf",
+                "conditions": [
+                    {
+                        "type": "equals",
+                        "lhs": "${hostSystemName}",
+                        "rhs": "Darwin"
+                    },
+                    {
+                        "type": "equals",
+                        "lhs": "${hostSystemName}",
+                        "rhs": "Linux"
+                    }
+                ]
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "name": "x64-Linux-Debug",
-            "inherits": "base",
-            "hidden": false,
-            "generator": "Unix Makefiles",
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        },
-        {
-            "name": "x64-Linux-Release",
-            "inherits": "base",
-            "hidden": false,
-            "generator": "Unix Makefiles",
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
-        },
-        {
-            "name": "x64-Windows-Debug",
+            "name": "Debug-Windows",
             "inherits": "base",
             "hidden": false,
             "generator": "Visual Studio 17 2022",
@@ -83,7 +75,7 @@
             }
         },
         {
-            "name": "x64-Windows-Release",
+            "name": "Release-Windows",
             "inherits": "base",
             "hidden": false,
             "generator": "Visual Studio 17 2022",
@@ -100,39 +92,27 @@
     ],
     "buildPresets": [
         {
-            "name": "x64-Darwin-Debug",
-            "configurePreset": "x64-Darwin-Debug",
+            "name": "Debug",
+            "configurePreset": "Debug",
             "hidden": false,
             "targets": ["docs", "all"]
         },
         {
-            "name": "x64-Darwin-Release",
-            "configurePreset": "x64-Darwin-Release",
+            "name": "Release",
+            "configurePreset": "Release",
             "hidden": false,
             "targets": ["install"]
         },
         {
-            "name": "x64-Linux-Debug",
-            "configurePreset": "x64-Linux-Debug",
-            "hidden": false,
-            "targets": ["docs", "all"]
-        },
-        {
-            "name": "x64-Linux-Release",
-            "configurePreset": "x64-Linux-Release",
-            "hidden": false,
-            "targets": ["install"]
-        },
-        {
-            "name": "x64-Windows-Debug",
-            "configurePreset": "x64-Windows-Debug",
+            "name": "Debug-Windows",
+            "configurePreset": "Debug-Windows",
             "hidden": false,
             "targets": ["docs", "ALL_BUILD"],
             "configuration": "Debug"
         },
         {
-            "name": "x64-Windows-Release",
-            "configurePreset": "x64-Windows-Release",
+            "name": "Release-Windows",
+            "configurePreset": "Release-Windows",
             "hidden": false,
             "targets": ["install"],
             "configuration": "Release"
@@ -140,44 +120,30 @@
     ],
     "testPresets": [
         {
-            "name": "x64-Darwin-Debug",
-            "configurePreset": "x64-Darwin-Debug",
+            "name": "Debug",
+            "configurePreset": "Debug",
             "output": {
                 "outputOnFailure": true
             }
         },
         {
-            "name": "x64-Darwin-Release",
-            "configurePreset": "x64-Darwin-Release",
+            "name": "Release",
+            "configurePreset": "Release",
             "output": {
                 "outputOnFailure": true
             }
         },
         {
-            "name": "x64-Linux-Debug",
-            "configurePreset": "x64-Linux-Debug",
-            "output": {
-                "outputOnFailure": true
-            }
-        },
-        {
-            "name": "x64-Linux-Release",
-            "configurePreset": "x64-Linux-Release",
-            "output": {
-                "outputOnFailure": true
-            }
-        },
-        {
-            "name": "x64-Windows-Debug",
-            "configurePreset": "x64-Windows-Debug",
+            "name": "Debug-Windows",
+            "configurePreset": "Debug-Windows",
             "configuration": "Debug",
             "output": {
                 "outputOnFailure": true
             }
         },
         {
-            "name": "x64-Windows-Release",
-            "configurePreset": "x64-Windows-Release",
+            "name": "Release-Windows",
+            "configurePreset": "Release-Windows",
             "configuration": "Release",
             "output": {
                 "outputOnFailure": true
@@ -186,104 +152,70 @@
     ],
     "workflowPresets": [
         {
-            "name": "x64-Darwin-Debug",
+            "name": "Debug",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "x64-Darwin-Debug"
+                    "name": "Debug"
                 },
                 {
                     "type": "build",
-                    "name": "x64-Darwin-Debug"
+                    "name": "Debug"
                 },
                 {
                     "type": "test",
-                    "name": "x64-Darwin-Debug"
+                    "name": "Debug"
                 }
             ]
         },
         {
-            "name": "x64-Darwin-Release",
+            "name": "Release",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "x64-Darwin-Release"
+                    "name": "Release"
                 },
                 {
                     "type": "build",
-                    "name": "x64-Darwin-Release"
+                    "name": "Release"
                 },
                 {
                     "type": "test",
-                    "name": "x64-Darwin-Release"
+                    "name": "Release"
                 }
             ]
         },
         {
-            "name": "x64-Linux-Debug",
+            "name": "Debug-Windows",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "x64-Linux-Debug"
+                    "name": "Debug-Windows"
                 },
                 {
                     "type": "build",
-                    "name": "x64-Linux-Debug"
+                    "name": "Debug-Windows"
                 },
                 {
                     "type": "test",
-                    "name": "x64-Linux-Debug"
+                    "name": "Debug-Windows"
                 }
             ]
         },
         {
-            "name": "x64-Linux-Release",
+            "name": "Release-Windows",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "x64-Linux-Release"
+                    "name": "Release-Windows"
                 },
                 {
                     "type": "build",
-                    "name": "x64-Linux-Release"
+                    "name": "Release-Windows"
                 },
                 {
                     "type": "test",
-                    "name": "x64-Linux-Release"
-                }
-            ]
-        },
-        {
-            "name": "x64-Windows-Debug",
-            "steps": [
-                {
-                    "type": "configure",
-                    "name": "x64-Windows-Debug"
-                },
-                {
-                    "type": "build",
-                    "name": "x64-Windows-Debug"
-                },
-                {
-                    "type": "test",
-                    "name": "x64-Windows-Debug"
-                }
-            ]
-        },
-        {
-            "name": "x64-Windows-Release",
-            "steps": [
-                {
-                    "type": "configure",
-                    "name": "x64-Windows-Release"
-                },
-                {
-                    "type": "build",
-                    "name": "x64-Windows-Release"
-                },
-                {
-                    "type": "test",
-                    "name": "x64-Windows-Release"
+                    "name": "Release-Windows"
                 }
             ]
         }

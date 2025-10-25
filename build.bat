@@ -113,15 +113,15 @@ goto show_help
 :end_parse_args
 
 REM Determine preset name based on OS and build type
-set "PRESET_NAME=x64-Windows-%BUILD_TYPE%"
+set "PRESET_NAME=%BUILD_TYPE%-Windows"
 
 REM Set default build and install directories if not specified
 if "%BUILD_DIR%"=="" (
-    set "BUILD_DIR=%SOURCE_DIR%\out\build\%PRESET_NAME%"
+    set "BUILD_DIR=%SOURCE_DIR%\out\build\%BUILD_TYPE%"
 )
 
 if "%INSTALL_PREFIX%"=="" (
-    set "INSTALL_PREFIX=%SOURCE_DIR%\out\install\%PRESET_NAME%"
+    set "INSTALL_PREFIX=%SOURCE_DIR%\out\install\%BUILD_TYPE%"
 )
 
 echo ========================================

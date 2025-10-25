@@ -15,39 +15,39 @@ jobs:
           # macOS builds
           - os: macos-13
             build_type: Release
-            preset: x64-Darwin-Release
+            preset: Release
             cc: clang
             cxx: clang++
           - os: macos-13
             build_type: Debug
-            preset: x64-Darwin-Debug
+            preset: Debug
             cc: clang
             cxx: clang++
 
           # Ubuntu Linux builds
           - os: ubuntu-22.04
             build_type: Release
-            preset: x64-Linux-Release
+            preset: Release
             cc: gcc-11
             cxx: g++-11
           - os: ubuntu-22.04
             build_type: Debug
-            preset: x64-Linux-Debug
+            preset: Debug
             cc: gcc-11
             cxx: g++-11
           - os: ubuntu-22.04
             build_type: Release
-            preset: x64-Linux-Release
+            preset: Release
             cc: clang-15
             cxx: clang++-15
 
           # Windows builds
           - os: windows-2022
             build_type: Release
-            preset: x64-Windows-Release
+            preset: Release-Windows
           - os: windows-2022
             build_type: Debug
-            preset: x64-Windows-Debug
+            preset: Debug-Windows
 
     runs-on: ${{ matrix.os }}
 
@@ -113,30 +113,30 @@ jobs:
 
     - name: Build project
       run: |
-        cmake --build out/build/${{ matrix.preset }} --config ${{ matrix.build_type }} --parallel
+        cmake --build out/build/${{ matrix.build_type }} --config ${{ matrix.build_type }} --parallel
 
     - name: Run tests
       run: |
-        ctest --test-dir out/build/${{ matrix.preset }} --config ${{ matrix.build_type }} --output-on-failure
+        ctest --test-dir out/build/${{ matrix.build_type }} --config ${{ matrix.build_type }} --output-on-failure
 
     - name: Install project
       run: |
-        cmake --install out/build/${{ matrix.preset }} --config ${{ matrix.build_type }}
+        cmake --install out/build/${{ matrix.build_type }} --config ${{ matrix.build_type }}
 
     - name: Test installed executable (Unix)
       if: runner.os != 'Windows'
       run: |
-        ./out/install/${{ matrix.preset }}/bin/myapp
+        ./out/install/${{ matrix.build_type }}/bin/myapp
 
     - name: Test installed executable (Windows)
       if: runner.os == 'Windows'
       run: |
-        ./out/install/${{ matrix.preset }}/bin/myapp.exe
+        ./out/install/${{ matrix.build_type }}/bin/myapp.exe
 
     - name: Build documentation (Release only)
       if: matrix.build_type == 'Release'
       run: |
-        cmake --build out/build/${{ matrix.preset }} --target docs --config ${{ matrix.build_type }}
+        cmake --build out/build/${{ matrix.build_type }} --target docs --config ${{ matrix.build_type }}
 
     - name: Upload build artifacts
       if: matrix.build_type == 'Release'
@@ -144,8 +144,8 @@ jobs:
       with:
         name: build-artifacts-${{ matrix.os }}-${{ matrix.cc || 'default' }}
         path: |
-          out/install/${{ matrix.preset }}/
-          out/build/${{ matrix.preset }}/docs/html/
+          out/install/${{ matrix.build_type }}/
+          out/build/${{ matrix.build_type }}/docs/html/
         retention-days: 7
 
   code-quality:
@@ -180,8 +180,8 @@ jobs:
 
     - name: Configure CMake with compile commands
       run: |
-        cmake --preset x64-Linux-Debug
-        cp out/build/x64-Linux-Debug/compile_commands.json .
+        cmake --preset Debug
+        cp out/build/Debug/compile_commands.json .
 
     - name: Run pre-commit hooks
       run: |
