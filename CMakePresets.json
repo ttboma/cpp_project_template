@@ -1,0 +1,100 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "x64-Darwin-Debug",
+            "hidden": false,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "BUILD_SHARED_LIBS": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "x64-Darwin-Release",
+            "hidden": false,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "BUILD_SHARED_LIBS": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "x64-Darwin-Debug",
+            "configurePreset": "x64-Darwin-Debug",
+            "hidden": false,
+            "targets": [
+                "docs",
+                "all"
+            ]
+        },
+        {
+            "name": "x64-Darwin-Release",
+            "configurePreset": "x64-Darwin-Release",
+            "hidden": false,
+            "targets": [
+                "install"
+            ]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "x64-Darwin-Debug",
+            "configurePreset": "x64-Darwin-Debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "x64-Darwin-Release",
+            "configurePreset": "x64-Darwin-Release",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "x64-Darwin-Debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "x64-Darwin-Debug"
+                },
+                {
+                    "type": "build",
+                    "name": "x64-Darwin-Debug"
+                },
+                {
+                    "type": "test",
+                    "name": "x64-Darwin-Debug"
+                }
+            ]
+        },
+        {
+            "name": "x64-Darwin-Release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "x64-Darwin-Release"
+                },
+                {
+                    "type": "build",
+                    "name": "x64-Darwin-Release"
+                },
+                {
+                    "type": "test",
+                    "name": "x64-Darwin-Release"
+                }
+            ]
+        }
+    ]
+}

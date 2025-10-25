@@ -1,0 +1,44 @@
+---
+# Clang-Tidy configuration for LeetCode C++ solutions
+# Based on modern C++20 best practices with focus on correctness, performance, and readability
+
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-exception-escape,
+  concurrency-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-avoid-c-arrays,
+  -cppcoreguidelines-owning-memory,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  performance-*,
+  portability-*,
+  readability-*,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-function-cognitive-complexity,
+  -readability-else-after-return,
+  -readability-identifier-naming,
+  -readability-named-parameter,
+  misc-*,
+  -misc-no-recursion,
+  -misc-non-private-member-variables-in-classes,
+  -misc-use-internal-linkage
+
+WarningsAsErrors: ''
+
+CheckOptions:
+  - { key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor, value: 1 }
+  - { key: modernize-use-nullptr.NullMacros,                     value: 'NULL'     }
+  - { key: performance-move-const-arg.CheckTriviallyCopyableMove, value: 0         }
+
+# Header filter to check all project headers
+HeaderFilterRegex: '.*'
+
+# Use .clang-format for formatting fixes
+FormatStyle: file
