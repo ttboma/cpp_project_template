@@ -320,6 +320,18 @@ if [[ "$TESTS_ONLY" == false ]]; then
     print_success "Build complete"
 fi
 
+# Create symlink for IDE support (after any build type)
+if [[ -f "${BUILD_DIR}/compile_commands.json" ]]; then
+    print_info "Creating compile_commands.json symlink for IDE support..."
+    cd "${SOURCE_DIR}"
+
+    # Create symlink pointing to the latest build
+    ln -sf "out/build/${BUILD_TYPE}/compile_commands.json" "compile_commands.json"
+
+    print_success "IDE symlink created: compile_commands.json -> out/build/${BUILD_TYPE}/compile_commands.json"
+fi
+
+
 # 6. Build tests if needed
 if [[ "$RUN_TESTS" == true && "$BUILD_TESTS" == true ]]; then
     if [[ "$TESTS_ONLY" == true ]]; then

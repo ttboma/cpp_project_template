@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "macOS",
-            "compileCommands": "${workspaceFolder}/out/build/Debug/compile_commands.json",
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
             "includePath": [
                 "${workspaceFolder}/include",
                 "${workspaceFolder}/src"
@@ -15,7 +15,7 @@
         },
         {
             "name": "Linux",
-            "compileCommands": "${workspaceFolder}/out/build/Debug/compile_commands.json",
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
             "includePath": [
                 "${workspaceFolder}/include",
                 "${workspaceFolder}/src"
@@ -27,13 +27,12 @@
         },
         {
             "name": "Windows",
-            "compileCommands": "${workspaceFolder}/out/build/Debug/compile_commands.json",
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
             "includePath": [
                 "${workspaceFolder}/include",
                 "${workspaceFolder}/src"
             ],
             "defines": [
-                "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],

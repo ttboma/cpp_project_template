@@ -219,6 +219,23 @@ if "%TESTS_ONLY%"=="false" (
     echo [SUCCESS] Build complete
 )
 
+REM Create symlink for IDE support (Windows) - after any build type
+if exist "%BUILD_DIR%\compile_commands.json" (
+    echo [INFO] Creating compile_commands.json symlink for IDE support...
+    cd "%SOURCE_DIR%"
+
+    REM Create symlink pointing to latest build, fallback to copy
+    if exist compile_commands.json del compile_commands.json
+    mklink compile_commands.json "out\build\%BUILD_TYPE%\compile_commands.json" >nul 2>&1
+    if errorlevel 1 (
+        echo [WARNING] Could not create symlink. Copying file instead...
+        copy "out\build\%BUILD_TYPE%\compile_commands.json" compile_commands.json >nul
+    )
+
+    echo [SUCCESS] IDE compile_commands.json created: compile_commands.json -^> out\build\%BUILD_TYPE%\compile_commands.json
+)
+
+
 REM Build tests if requested
 if "%BUILD_TESTS%"=="true" (
     echo [INFO] Building test targets...
