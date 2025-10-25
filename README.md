@@ -14,14 +14,22 @@ A modern C++20 project template with automated build scripts, testing, documenta
   - clang-tidy for static analysis
   - pre-commit hooks for automatic checks
 - **Virtual environment** for Python-based development tools
-- **Cross-platform** support (macOS, Linux)
+- **Cross-platform** support (macOS, Linux, Windows)
 
 ## Prerequisites
 
+### All Platforms
+
 - CMake ≥ 3.25
-- C++20 compatible compiler (GCC, Clang, AppleClang)
+- C++20 compatible compiler
 - Python ≥ 3.8 (for development tools)
 - Doxygen (optional, for documentation)
+
+### Platform-Specific
+
+- **macOS**: Xcode Command Line Tools or Clang
+- **Linux**: GCC ≥ 10 or Clang ≥ 11
+- **Windows**: Visual Studio 2022 with C++ tools, MinGW-w64, or Clang
 
 ## Quick Start
 
@@ -37,8 +45,17 @@ A modern C++20 project template with automated build scripts, testing, documenta
    - Modify `build.sh` help text if needed (change "leetcode_cpp project" to your project name)
 
 3. **Build the project**:
+
+   **On macOS/Linux**:
+
    ```bash
    ./build.sh
+   ```
+
+   **On Windows**:
+
+   ```cmd
+   build.bat
    ```
 
    On first run, this will:
@@ -48,13 +65,31 @@ A modern C++20 project template with automated build scripts, testing, documenta
    - Install pre-commit hooks
 
 4. **Run tests**:
+
+   **On macOS/Linux**:
+
    ```bash
    ./build.sh -r
    ```
 
+   **On Windows**:
+
+   ```cmd
+   build.bat -t
+   ```
+
 5. **Build documentation**:
+
+   **On macOS/Linux**:
+
    ```bash
    ./build.sh --open-docs
+   ```
+
+   **On Windows**:
+
+   ```cmd
+   build.bat --open-docs
    ```
 
 ## Build Script Usage

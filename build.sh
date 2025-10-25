@@ -149,7 +149,21 @@ esac
 
 # Determine preset name based on OS and build type
 OS_NAME=$(uname -s)
-PRESET_NAME="x64-${OS_NAME}-${BUILD_TYPE}"
+case "$OS_NAME" in
+    "Darwin")
+        PRESET_NAME="x64-Darwin-${BUILD_TYPE}"
+        ;;
+    "Linux")
+        PRESET_NAME="x64-Linux-${BUILD_TYPE}"
+        ;;
+    "CYGWIN"*|"MINGW"*|"MSYS"*)
+        PRESET_NAME="x64-Windows-${BUILD_TYPE}"
+        ;;
+    *)
+        print_warning "Unknown OS: $OS_NAME, defaulting to Linux preset"
+        PRESET_NAME="x64-Linux-${BUILD_TYPE}"
+        ;;
+esac
 
 # Set default build and install directories if not specified
 if [[ -z "$BUILD_DIR" ]]; then

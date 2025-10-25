@@ -43,6 +43,43 @@ compile_commands.json
 # macOS
 .DS_Store
 
+# Windows
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.vcxproj.filters
+*.vcxproj.user
+.vs/
+x64/
+x86/
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+
+# Visual Studio
+*.aps
+*.ncb
+*.opendb
+*.ipch
+*.idb
+*.pdb
+*.ilk
+*.meta
+*.obj
+*.pch
+*.tlog
+*.log
+*.manifest
+*.res
+*.rc
+*.suo
+*.user
+*.vcproj
+*.vcxproj.user
+*.vcxproj.filters
+
 # Python
 __pycache__/
 *.py[cod]

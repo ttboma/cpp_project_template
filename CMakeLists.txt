@@ -42,13 +42,27 @@ include(GNUInstallDirs)
 
 # Configure RPATH settings for proper runtime library linking
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-set(CMAKE_MACOSX_RPATH TRUE)
 
-# Set RPATH for installed binaries to find libraries in the same installation
+# Platform-specific configurations
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(CMAKE_MACOSX_RPATH TRUE)
     set(CMAKE_INSTALL_RPATH "@executable_path/../${CMAKE_INSTALL_LIBDIR}")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    # On Windows, DLLs are searched in the same directory as the executable
+    # or in directories specified by PATH
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+    # For multi-config generators (Visual Studio)
+    foreach(CONFIG ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${CONFIG} CONFIG_UPPER)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${CONFIG_UPPER} ${CMAKE_BINARY_DIR}/bin/${CONFIG})
+        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${CONFIG_UPPER} ${CMAKE_BINARY_DIR}/lib/${CONFIG})
+        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${CONFIG_UPPER} ${CMAKE_BINARY_DIR}/lib/${CONFIG})
+    endforeach()
 endif()
 
 # Add subdirectories
