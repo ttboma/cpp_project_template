@@ -13,6 +13,7 @@ compile_commands.json
 
 # IDE specific
 .vscode/
+!.vscode/c_cpp_properties.json
 .idea/
 *.swp
 *.swo
