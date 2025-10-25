@@ -112,9 +112,6 @@ goto show_help
 
 :end_parse_args
 
-REM Determine preset name based on OS and build type
-set "PRESET_NAME=%BUILD_TYPE%-Windows"
-
 REM Set default build and install directories if not specified
 if "%BUILD_DIR%"=="" (
     set "BUILD_DIR=%SOURCE_DIR%\out\build\%BUILD_TYPE%"
@@ -200,7 +197,7 @@ if "%CLEAN_BUILD%"=="true" (
 
 REM Configure CMake
 echo [INFO] Configuring CMake...
-cmake --preset "%PRESET_NAME%"
+cmake -S "%SOURCE_DIR%" -B "%BUILD_DIR%" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX="%INSTALL_PREFIX%" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIBS=ON
 if errorlevel 1 (
     echo [ERROR] CMake configuration failed
     exit /b 1

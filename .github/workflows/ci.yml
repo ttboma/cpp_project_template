@@ -15,39 +15,32 @@ jobs:
           # macOS builds
           - os: macos-13
             build_type: Release
-            preset: Release
             cc: clang
             cxx: clang++
           - os: macos-13
             build_type: Debug
-            preset: Debug
             cc: clang
             cxx: clang++
 
           # Ubuntu Linux builds
           - os: ubuntu-22.04
             build_type: Release
-            preset: Release
             cc: gcc-11
             cxx: g++-11
           - os: ubuntu-22.04
             build_type: Debug
-            preset: Debug
             cc: gcc-11
             cxx: g++-11
           - os: ubuntu-22.04
             build_type: Release
-            preset: Release
             cc: clang-15
             cxx: clang++-15
 
           # Windows builds
           - os: windows-2022
             build_type: Release
-            preset: Release-Windows
           - os: windows-2022
             build_type: Debug
-            preset: Debug-Windows
 
     runs-on: ${{ matrix.os }}
 
@@ -109,7 +102,7 @@ jobs:
 
     - name: Configure CMake
       run: |
-        cmake --preset ${{ matrix.preset }}
+        cmake -S . -B out/build/${{ matrix.build_type }} -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=out/install/${{ matrix.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIBS=ON
 
     - name: Build project
       run: |
@@ -180,7 +173,7 @@ jobs:
 
     - name: Configure CMake with compile commands
       run: |
-        cmake --preset Debug
+        cmake -S . -B out/build/Debug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIBS=ON
         cp out/build/Debug/compile_commands.json .
 
     - name: Run pre-commit hooks

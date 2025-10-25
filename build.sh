@@ -53,10 +53,10 @@ OPTIONS:
     -h, --help              Show this help message
     -c, --clean             Clean build (remove build directory first)
     -t, --type TYPE         Build type: Debug, Release, RelWithDebInfo, MinSizeRel (default: Release)
-    -d, --build-dir DIR     Build directory (default: "\${sourceDir}/out/build/\${presetName}")
-    -j, --jobs N            Number of parallel jobs (default: $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4))
+    -d, --build-dir DIR     Build directory (default: "${sourceDir}/out/build/${buildType}")
+    -j, --jobs N            Number of parallel jobs (default: 8)
     -r, --run-tests         Run tests after building
-    -i, --install PREFIX    Install to PREFIX directory (default: \${sourceDir}/out/install/\${presetName})
+    -i, --install PREFIX    Install to PREFIX directory (default: ${sourceDir}/out/install/${buildType})
     -v, --verbose           Verbose build output
     --no-tests              Don't build tests
     --tests-only            Build and run tests only (implies --run-tests)
@@ -144,18 +144,6 @@ case $BUILD_TYPE in
         print_error "Invalid build type: $BUILD_TYPE"
         print_error "Valid types: Debug, Release, RelWithDebInfo, MinSizeRel"
         exit 1
-        ;;
-esac
-
-# Determine preset name based on OS and build type
-OS_NAME=$(uname -s)
-case "$OS_NAME" in
-    "CYGWIN"*|"MINGW"*|"MSYS"*)
-        PRESET_NAME="${BUILD_TYPE}-Windows"
-        ;;
-    *)
-        # For macOS and Linux, use the same preset name
-        PRESET_NAME="${BUILD_TYPE}"
         ;;
 esac
 
