@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "mylib.hpp"
+#include "my_lib.hpp"
 
 int main() {
     std::cout << "MyProject Application\n";

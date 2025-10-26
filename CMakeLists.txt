@@ -13,11 +13,11 @@ project(
 
 # Including custom cmake utilities
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-include(RequireOutOfSourceBuilds)
-include(FindDependency)
+include(require_out_of_source_builds)
+include(find_dependency)
 
 # Ensures that the project is built outside of the source directory
-require_out_of_source_build()
+requireOutOfSourceBuild()
 
 # Specify the C++ standard
 # Create an interface library target named "compiler_flags" to hold common
@@ -29,13 +29,13 @@ target_compile_features(compiler_flags INTERFACE cxx_std_20)
 
 # Add compiler warning flags
 # Define generator expressions to detect compiler families
-set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
-set(msvc_cxx     "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
+set(gccLikeCxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
+set(msvcCxx     "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 
 # Apply warning options only when building this project (BUILD_INTERFACE)
 target_compile_options(compiler_flags INTERFACE
-  "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
-  "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>"
+  "$<${gccLikeCxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
+  "$<${msvcCxx}:$<BUILD_INTERFACE:-W3>>"
 )
 
 include(GNUInstallDirs)

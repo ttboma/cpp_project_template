@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "mylib.hpp"
+#include "my_lib.hpp"
 
 TEST(AddTest, PositiveNumbers) {
     EXPECT_EQ(myproject::add(2, 3), 5);

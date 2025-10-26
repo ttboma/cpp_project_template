@@ -18,16 +18,16 @@ endif()
 include(GoogleTest)
 
 # Build test executable
-add_executable(mylib_tests
+add_executable(my_lib_tests
     test_mylib.cpp
 )
 
-target_link_libraries(mylib_tests
+target_link_libraries(my_lib_tests
     PRIVATE
-        mylib
+        my_lib
         GTest::gtest_main
         compiler_flags
 )
 
 # Discover and register tests
-gtest_discover_tests(mylib_tests)
+gtest_discover_tests(my_lib_tests)
