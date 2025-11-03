@@ -1,6 +1,3 @@
-# Enable testing
-enable_testing()
-
 # Find Google Test - will use system version or fetch if not found
 find_package(GTest)
 

@@ -34,10 +34,10 @@ sed -i.bak "s/MyProject/${PROJECT_NAME}/g" CMakeLists.txt
 sed -i.bak "s/Modern C++ Project Template/${PROJECT_DESC}/g" CMakeLists.txt
 rm CMakeLists.txt.bak
 
-# Update build.sh help text
-echo "Updating build.sh..."
-sed -i.bak "s/leetcode_cpp project/${PROJECT_NAME} project/g" build.sh
-rm build.sh.bak
+# Update build.py help text
+echo "Updating build.py..."
+sed -i.bak "s/LeetCode C++ project/${PROJECT_NAME} project/g" build.py
+rm build.py.bak
 
 # Update README.md
 echo "Updating README.md..."
@@ -58,8 +58,8 @@ echo "✓ Setup complete!"
 echo ""
 echo "Next steps:"
 echo "  1. Review and customize files as needed"
-echo "  2. Run: ./build.sh"
-echo "  3. Run tests: ./build.sh -r"
-echo "  4. Generate docs: ./build.sh --open-docs"
+echo "  2. Run: python3 build.py"
+echo "  3. Run tests: python3 build.py -r"
+echo "  4. Generate docs: python3 build.py --open-docs"
 echo ""
 echo "Happy coding!"

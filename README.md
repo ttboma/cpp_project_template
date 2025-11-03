@@ -8,7 +8,7 @@ A modern C++20 project template with automated build scripts, testing, documenta
 - **CMake** build system (v3.25+) with presets
 - **Google Test** for unit testing
 - **Doxygen** for documentation generation
-- **Automated build script** (`build.sh`) with multiple options
+- **Automated build script** (`build.py`) with multiple options
 - **Code quality tools**:
   - clang-format for code formatting
   - clang-tidy for static analysis
@@ -42,20 +42,12 @@ A modern C++20 project template with automated build scripts, testing, documenta
 2. **Customize the project**:
    - Update project name in `CMakeLists.txt` (change `MyProject` to your project name)
    - Update project description in `CMakeLists.txt`
-   - Modify `build.sh` help text if needed (change "leetcode_cpp project" to your project name)
+   - Modify `build.py` help text if needed (change "LeetCode C++ project" to your project name)
 
 3. **Build the project**:
 
-   **On macOS/Linux**:
-
    ```bash
-   ./build.sh
-   ```
-
-   **On Windows**:
-
-   ```cmd
-   build.bat
+   python3 build.py
    ```
 
    On first run, this will:
@@ -66,36 +58,129 @@ A modern C++20 project template with automated build scripts, testing, documenta
 
 4. **Run tests**:
 
-   **On macOS/Linux**:
-
    ```bash
-   ./build.sh -r
-   ```
-
-   **On Windows**:
-
-   ```cmd
-   build.bat -t
+   python3 build.py -r
    ```
 
 5. **Build documentation**:
 
-   **On macOS/Linux**:
-
    ```bash
-   ./build.sh --open-docs
+   python3 build.py --open-docs
    ```
 
-   **On Windows**:
+## Build, Test, Docs, and Install
 
-   ```cmd
-   build.bat --open-docs
-   ```
+This section provides comprehensive examples of how to build, test, generate documentation, and install the project using the Python build script.
+
+### Build
+
+The project uses a Python-based build system that handles all build operations:
+
+```bash
+# Default build (Release mode)
+python3 build.py
+
+# Debug build
+python3 build.py -t Debug
+
+# Clean build (remove build directory first)
+python3 build.py -c
+
+# Verbose build output
+python3 build.py -v
+
+# Custom build directory
+python3 build.py -d custom/build/path
+
+# Parallel build with specific job count
+python3 build.py -j 8
+```
+
+### Test
+
+Run unit tests with various options:
+
+```bash
+# Build and run tests
+python3 build.py -r
+
+# Build and run tests only (skip main build)
+python3 build.py --tests-only
+
+# Debug build with tests
+python3 build.py -t Debug -r
+
+# Clean debug build with tests and verbose output
+python3 build.py -c -t Debug -r -v
+
+# Build without tests
+python3 build.py --no-tests
+```
+
+### Docs
+
+Generate and view documentation:
+
+```bash
+# Build documentation
+python3 build.py --docs
+
+# Build and open documentation in browser
+python3 build.py --open-docs
+
+# Build documentation with Release build
+python3 build.py -t Release --open-docs
+
+# Clean build with documentation
+python3 build.py -c --open-docs
+```
+
+### Install
+
+Install the project to system or custom directories:
+
+```bash
+# Install to default location (out/install/Release)
+python3 build.py
+
+# Install to custom prefix
+python3 build.py -i /usr/local
+
+# Install Debug build to custom location
+python3 build.py -t Debug -i /opt/myproject
+
+# Clean Release build with installation
+python3 build.py -c -t Release -i /usr/local
+
+# Complete workflow: clean, build, test, install
+python3 build.py -c -r -i /usr/local
+```
+
+### Combined Operations
+
+Combine multiple operations for complete workflows:
+
+```bash
+# Development workflow: clean Debug build with tests
+python3 build.py -c -t Debug -r
+
+# Production workflow: clean Release build with docs and install
+python3 build.py -c -t Release --open-docs -i /usr/local
+
+# CI/CD workflow: clean build, test, verbose output
+python3 build.py -c -r -v
+
+# Documentation workflow: clean build with docs
+python3 build.py -c --open-docs
+
+# Quick verification: tests only
+python3 build.py --tests-only
+```
 
 ## Build Script Usage
 
 ```bash
-./build.sh [OPTIONS]
+python3 build.py [OPTIONS]
 ```
 
 ### Options
@@ -117,32 +202,32 @@ A modern C++20 project template with automated build scripts, testing, documenta
 
 ```bash
 # Clean debug build with tests
-./build.sh -c -t Debug -r
+python3 build.py -c -t Debug -r
 
 # Release build with documentation
-./build.sh -t Release --open-docs
+python3 build.py -t Release --open-docs
 
 # Quick test verification
-./build.sh --tests-only
+python3 build.py --tests-only
 
 # Production build and install
-./build.sh -c -t Release -i /usr/local
+python3 build.py -c -t Release -i /usr/local
 ```
 
 ## Running Tests
 
 ```bash
 # Using --test-dir to specify build directory
-ctest --test-dir out/build/x64-Darwin-Debug --output-on-failure
+ctest --test-dir out/build/Debug --output-on-failure
 
 # List all tests
-ctest --test-dir out/build/x64-Darwin-Debug -N
+ctest --test-dir out/build/Debug -N
 
 # Run specific test
-ctest --test-dir out/build/x64-Darwin-Debug -R "AddTest" --output-on-failure
+ctest --test-dir out/build/Debug -R "AddTest" --output-on-failure
 
 # Verbose output
-ctest --test-dir out/build/x64-Darwin-Debug --output-on-failure -V
+ctest --test-dir out/build/Debug --output-on-failure -V
 ```
 
 ## Code Quality Tools
@@ -172,13 +257,13 @@ clang-format --dry-run --Werror -style=file src/mylib.cpp
 
 ```bash
 # Run on a specific file
-clang-tidy -p out/build/x64-Darwin-Debug src/mylib.cpp
+clang-tidy -p out/build/Debug src/mylib.cpp
 
 # Run with automatic fixes
-clang-tidy -p out/build/x64-Darwin-Debug --fix src/mylib.cpp
+clang-tidy -p out/build/Debug --fix src/mylib.cpp
 
 # Run on all source files
-find src -name "*.cpp" | xargs clang-tidy -p out/build/x64-Darwin-Debug
+find src -name "*.cpp" | xargs clang-tidy -p out/build/Debug
 ```
 
 ### pre-commit Hooks
@@ -216,7 +301,7 @@ pre-commit run clang-format --all-files
 │   └── RequireOutOfSourceBuilds.cmake
 ├── docs/                   # Documentation
 │   └── CMakeLists.txt
-├── build.sh                # Build automation script
+├── build.py                # Build automation script
 ├── CMakeLists.txt          # Root CMake configuration
 ├── CMakePresets.json       # CMake presets
 ├── .clang-format           # Code formatting rules
@@ -253,11 +338,11 @@ Edit the root `CMakeLists.txt` to:
 ## Development Workflow
 
 1. **Make changes** to source code
-2. **Build**: `./build.sh -t Debug`
-3. **Run tests**: `./build.sh -r` or `ctest --test-dir out/build/x64-Darwin-Debug`
+2. **Build**: `python3 build.py -t Debug`
+3. **Run tests**: `python3 build.py -r` or `ctest --test-dir out/build/Debug`
 4. **Format code**: `pre-commit run --all-files` (or let git hooks do it)
 5. **Commit**: Git hooks will automatically run checks
-6. **Build documentation**: `./build.sh --open-docs`
+6. **Build documentation**: `python3 build.py --open-docs`
 
 ## CI/CD Integration
 
@@ -265,7 +350,7 @@ The build script is designed for CI/CD pipelines:
 
 ```bash
 # CI build and test
-./build.sh -c -t Release -r -v
+python3 build.py -c -t Release -r -v
 
 # Exit code will be non-zero if build or tests fail
 ```

@@ -40,6 +40,9 @@ target_compile_options(compiler_flags INTERFACE
 
 include(GNUInstallDirs)
 
+# Enable testing for CTest
+enable_testing()
+
 # Configure RPATH settings for proper runtime library linking
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
