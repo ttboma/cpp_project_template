@@ -1,0 +1,33 @@
+{
+  // Disable C/C++ IntelliSense to use clangd instead
+  "C_Cpp.intelliSenseEngine": "disabled",
+
+  // clangd configuration
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--header-insertion=iwyu",
+    "--pch-storage=memory"
+  ],
+
+  // Editor settings for C/C++
+  "editor.formatOnSave": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+
+  // CMake configuration
+  "cmake.configureOnOpen": false,
+
+  // File associations
+  "files.associations": {
+    "*.hpp": "cpp",
+    "*.cpp": "cpp",
+    "*.h": "c",
+    "*.c": "c"
+  }
+}

@@ -1,0 +1,55 @@
+# clangd configuration file
+# See: https://clangd.llvm.org/config
+
+CompileFlags:
+  # Treat all files as C++ (useful for headers without extensions)
+  Add: [-xc++, -std=c++20]
+  # Remove problematic flags that clangd doesn't understand
+  Remove: [-mabi=*, -march=*, -mtune=*]
+
+Diagnostics:
+  # Suppress specific warnings that may be too noisy
+  Suppress:
+    - unused-parameter
+  # Enable clang-tidy checks
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - cert-*
+      - cppcoreguidelines-*
+      - google-*
+      - misc-*
+      - modernize-*
+      - performance-*
+      - readability-*
+    Remove:
+      # Remove checks that conflict with C++20 or are too strict
+      - modernize-use-trailing-return-type
+      - readability-identifier-length
+      - cppcoreguidelines-avoid-magic-numbers
+      - readability-magic-numbers
+      - google-readability-todo
+    CheckOptions:
+      readability-identifier-naming.NamespaceCase: lower_case
+      readability-identifier-naming.ClassCase: CamelCase
+      readability-identifier-naming.StructCase: CamelCase
+      readability-identifier-naming.FunctionCase: camelBack
+      readability-identifier-naming.VariableCase: camelBack
+      readability-identifier-naming.ConstantCase: UPPER_CASE
+      readability-identifier-naming.ParameterCase: camelBack
+      readability-identifier-naming.EnumCase: CamelCase
+      readability-identifier-naming.EnumConstantCase: UPPER_CASE
+
+Index:
+  # Use background indexing for better performance
+  Background: Build
+
+InlayHints:
+  # Show parameter names in function calls
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+
+Hover:
+  # Show more detailed information on hover
+  ShowAKA: Yes

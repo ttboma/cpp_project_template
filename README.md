@@ -14,6 +14,7 @@ A modern C++20 project template with automated build scripts, testing, documenta
   - clang-tidy for static analysis
   - pre-commit hooks for automatic checks
 - **Virtual environment** for Python-based development tools
+- **VS Code integration** with recommended extensions and optimized configuration
 - **Cross-platform** support (macOS, Linux, Windows)
 
 ## Prerequisites
@@ -30,6 +31,45 @@ A modern C++20 project template with automated build scripts, testing, documenta
 - **macOS**: Xcode Command Line Tools or Clang
 - **Linux**: GCC ≥ 10 or Clang ≥ 11
 - **Windows**: Visual Studio 2022 with C++ tools, MinGW-w64, or Clang
+
+### Recommended VS Code Extensions
+
+For the best development experience, install and configure these extensions:
+
+#### Required Extensions
+
+1. **[C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)** (Microsoft)
+   - Provides debugging capabilities
+   - Integrates with build systems and tasks
+   - Essential for debugging support
+
+2. **[clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)**
+   - Advanced code completion and IntelliSense
+   - Superior diagnostics and refactoring
+   - Faster definition/reference lookup
+   - Integrates with clang-tidy for static analysis
+
+#### Configuration
+
+To avoid conflicts and leverage the strengths of both extensions:
+
+1. **Disable C/C++ IntelliSense**: Add to your `.vscode/settings.json`:
+
+   ```json
+   {
+     "C_Cpp.intelliSenseEngine": "disabled"
+   }
+   ```
+
+2. This configuration allows:
+   - **clangd** to handle language server features (code completion, diagnostics, refactoring)
+   - **C/C++** extension to handle debugging
+
+#### Optional Extensions
+
+- **[CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)** - CMake language support
+- **[CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)** - Extended CMake support
+- **[Better C++ Syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-cpp-syntax)** - Enhanced syntax highlighting
 
 ## Quick Start
 
@@ -301,9 +341,13 @@ pre-commit run clang-format --all-files
 │   └── RequireOutOfSourceBuilds.cmake
 ├── docs/                   # Documentation
 │   └── CMakeLists.txt
+├── .vscode/                # VS Code configuration
+│   ├── settings.json       # Workspace settings (clangd config)
+│   └── extensions.json     # Recommended extensions
 ├── build.py                # Build automation script
 ├── CMakeLists.txt          # Root CMake configuration
 ├── CMakePresets.json       # CMake presets
+├── .clangd                 # clangd language server configuration
 ├── .clang-format           # Code formatting rules
 ├── .clang-tidy             # Static analysis rules
 ├── .pre-commit-config.yaml # Pre-commit hooks configuration
